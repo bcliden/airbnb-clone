@@ -5,6 +5,7 @@
 <app-filters [filterBarState]="filterBarState$ | async" 
   (toggleFilterDropdown)="toggleFilterDropdown($event)"
   (closeFilterDropdown)="closeFilterDropdown($event)"
+  (applyFilters)="applyFilters($event)"
   ></app-filters>
 
 <hr class="uk-margin-small uk-margin-remove-bottom">

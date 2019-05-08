@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/modules/core/services/data.service';
+import { Filters } from 'src/app/modules/core/containers/header-container/header-container.component';
 
 @Component({
   selector: 'app-home-list-container',
@@ -14,7 +15,10 @@ export class HomeListContainerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.data.loadHomes();
+    this.data.getFiltersFromUrlQueryParams()
+      .subscribe((filters: Filters) => {
+        this.data.loadHomes(filters);
+      });
   }
 
 }
