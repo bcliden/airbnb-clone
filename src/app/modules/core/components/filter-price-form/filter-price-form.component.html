@@ -2,12 +2,18 @@
 
   <div class="uk-flex-row uk-flex uk-margin">
     <label>Minimum Price:
-      <input type="number" [formControlName]="'min'" step="50" min="0" class="uk-input">
+      <div class="uk-inline">
+          <span class="uk-form-icon">$</span>
+          <input type="number" [formControlName]="'min'" step="50" min="0" class="uk-input">
+      </div>
     </label>
   </div>
   <div class="uk-flex-row uk-flex uk-margin">
     <label>Maximum Price:
-        <input type="number" [formControlName]="'max'" step="50" min="0" class="uk-input">
+      <div class="uk-inline">
+          <span class="uk-form-icon">$</span>
+          <input type="number" [formControlName]="'max'" step="50" min="0" class="uk-input">
+      </div>
     </label>
   </div>
   <button (click)="form.reset()" type="button" class="uk-button uk-button-text uk-button-large uk-align-left uk-margin-small">Clear</button>
