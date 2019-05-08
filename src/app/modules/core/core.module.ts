@@ -6,13 +6,19 @@ import { FiltersComponent } from './components/filters/filters.component';
 import { DataService } from './services/data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { FilterHomeTypeFormComponent } from './components/filter-home-type-form/filter-home-type-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [HeaderContainerComponent, NavComponent, FiltersComponent],
+  declarations: [HeaderContainerComponent, NavComponent, FiltersComponent, FilterHomeTypeFormComponent],
   imports: [
     CommonModule,
     HttpClientModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule
   ],
   exports: [HeaderContainerComponent],
   providers: [DataService]

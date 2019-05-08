@@ -2,7 +2,7 @@
     <div (clickOutside)="closeFilterDropdown.next('homeType')" class="uk-padding-remove-left">
         <button (click)="toggleFilterDropdown.next('homeType')" class="uk-button uk-button-default uk-button-small uk-text-nowrap">Home Type</button>
         <div *ngIf="filterBarState.homeType.open" class="uk-width-medium uk-dropdown uk-open uk-dropdown-bottom-left">
-          Home type filter dropdown
+          <app-filter-home-type-form></app-filter-home-type-form>
         </div>
     </div>
     <div>
