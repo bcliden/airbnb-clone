@@ -1,0 +1,15 @@
+<form [formGroup]="form" (submit)="submit(form.value)">
+
+  <div class="uk-flex-row uk-flex uk-margin">
+    <label>Minimum Price:
+      <input type="number" [formControlName]="'min'" step="50" min="0">
+    </label>
+  </div>
+  <div class="uk-flex-row uk-flex uk-margin">
+    <label>Maximum Price:
+        <input type="number" [formControlName]="'max'" step="50" min="0">
+    </label>
+  </div>
+  <button (click)="form.reset()" type="button" class="uk-button uk-button-text uk-button-large uk-align-left uk-margin-small">Clear</button>
+  <button type="submit" class="uk-button uk-button-link uk-button-large uk-align-right uk-margin-small">Apply</button>
+</form>

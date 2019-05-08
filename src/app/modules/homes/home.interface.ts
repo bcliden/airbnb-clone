@@ -14,3 +14,8 @@ export type HomeTypes = 'Entire Apartment'
   | 'Private Room' 
   | 'Tree House' 
   | 'Hotel Room';
+
+export interface PriceFilter {
+  min?: number;
+  max?: number;
+}

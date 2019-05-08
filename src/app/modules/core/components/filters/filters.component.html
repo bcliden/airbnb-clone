@@ -1,29 +1,32 @@
 <div class="uk-background-default uk-flex uk-flex-nowrap uk-grid-small uk-margin-left">
-    <div (clickOutside)="closeFilterDropdown.next('homeType')" class="uk-padding-remove-left">
-        <button 
-          (click)="toggleFilterDropdown.next('homeType')" class="uk-button uk-button-default uk-button-small uk-text-nowrap"
-          [ngClass]="{ 'uk-button-primary': filterBarState.homeType.filters.length > 0}"
-        >Home Type</button>
-        <div *ngIf="filterBarState.homeType.open" class="uk-width-medium uk-dropdown uk-open uk-dropdown-bottom-left">
-          <app-filter-home-type-form 
-            [defaultFilters]="filterBarState.homeType.filters"
-            (applyHomeTypeFilter)="applyFilters.next({homeType: $event})"
-          ></app-filter-home-type-form>
-        </div>
+  <div (clickOutside)="closeFilterDropdown.next('homeType')" class="uk-padding-remove-left">
+    <button (click)="toggleFilterDropdown.next('homeType')"
+      class="uk-button uk-button-default uk-button-small uk-text-nowrap"
+      [ngClass]="{ 'uk-button-primary': filterBarState.homeType.filters.length > 0}">Home Type</button>
+    <div *ngIf="filterBarState.homeType.open" class="uk-width-medium uk-dropdown uk-open uk-dropdown-bottom-left">
+      <app-filter-home-type-form [defaultFilters]="filterBarState.homeType.filters"
+        (applyHomeTypeFilter)="applyFilters.next({homeType: $event})"></app-filter-home-type-form>
     </div>
-    <div>
-        <button class="uk-button uk-button-default uk-button-small uk-text-nowrap">Dates</button>
+  </div>
+  <div (clickOutside)="closeFilterDropdown.next('price')">
+    <button (click)="toggleFilterDropdown.next('price')"
+      class="uk-button uk-button-default uk-button-small uk-text-nowrap"
+      [ngClass]="{ 'uk-button-primary': filterBarState.price.min || filterBarState.price.max }">Price</button>
+    <div *ngIf="filterBarState.price.open" class="uk-width-medium uk-dropdown uk-open uk-dropdown-bottom-left">
+      <app-filter-price-form [defaultFilters]="filterBarState.price"
+        (applyPriceFilter)="applyFilters.next({price: $event})"></app-filter-price-form>
     </div>
-    <div>
-        <button class="uk-button uk-button-default uk-button-small uk-text-nowrap">Guest</button>
-    </div>
-    <div>
-        <button class="uk-button uk-button-default uk-button-small uk-text-nowrap">Price</button>
-    </div>
-    <div>
-        <button class="uk-button uk-button-default uk-button-small uk-text-nowrap">Rooms and Beds</button>
-    </div>
-    <div>
-        <button class="uk-button uk-button-default uk-button-small uk-text-nowrap">Amenities</button>
-    </div>
+  </div>
+  <div>
+    <button class="uk-button uk-button-default uk-button-small uk-text-nowrap">Dates</button>
+  </div>
+  <div>
+    <button class="uk-button uk-button-default uk-button-small uk-text-nowrap">Guest</button>
+  </div>
+  <div>
+    <button class="uk-button uk-button-default uk-button-small uk-text-nowrap">Rooms and Beds</button>
+  </div>
+  <div>
+    <button class="uk-button uk-button-default uk-button-small uk-text-nowrap">Amenities</button>
+  </div>
 </div>

@@ -46,19 +46,31 @@ export class DataService {
   getFiltersFromUrlQueryParams(): Observable<Filters> {
     return this.route.queryParams.pipe(
       switchMap(params => {
-        if (Array.isArray(params['home-type'])) {
-          return of({
-            homeType: params['home-type']
-          });
+        let filters: Filters = {
+          homeType: [],
+          price: {}
         };
-        if (typeof params['home-type'] === 'string') {
-          return of({
-            homeType: [params['home-type']]
-          })
+        if (Array.isArray(params['home_type'])) {
+          // return of({
+          //   homeType: params['homeType'],
+          //   price: { min:null, max: null }
+          // });
+          filters.homeType = params['home_type'];
         };
-        return of({
-          homeType: []
-        });
+        if (typeof params['home_type'] === 'string') {
+          // return of({
+          //   homeType: [params['homeType']],
+          //   price: { min:null, max: null }
+          // })
+          filters.homeType = [params['home_type']]
+        };
+        if (params['price_min']) {
+          filters.price.min = params['price_min'];
+        }
+        if (params['price_max']) {
+          filters.price.max = params['price_max'];
+        }
+        return of(filters);
       })
     )
   }
