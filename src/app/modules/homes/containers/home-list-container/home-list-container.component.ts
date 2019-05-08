@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from 'src/app/modules/core/services/data.service';
 
 @Component({
   selector: 'app-home-list-container',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-list-container.component.less']
 })
 export class HomeListContainerComponent implements OnInit {
+  homes$ = this.data.getHomes$();
 
-  constructor() { }
+  constructor(
+    private data: DataService
+  ) { }
 
   ngOnInit() {
+    this.data.loadHomes();
   }
 
 }
