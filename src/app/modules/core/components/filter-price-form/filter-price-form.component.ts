@@ -25,7 +25,6 @@ export class FilterPriceFormComponent implements OnInit {
   }
 
   submit(formValue) {
-    console.log('submitted!');
     const price: PriceFilter = {
       min: formValue.min,
       max: formValue.max

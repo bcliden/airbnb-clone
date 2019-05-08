@@ -8,4 +8,6 @@
     <div class="uk-grid-match uk-child-width-1-5@l uk-child-width-1-4@m uk-child-width-1-2@s" uk-grid>
         <app-home *ngFor="let home of homes.data" [home]="home"></app-home>
     </div>
+
+        <p *ngIf="homes.data.length <= 0 && !homes.loading" class="uk-container uk-text-center uk-margin">No matches found. Please try another search.</p>
 </div>

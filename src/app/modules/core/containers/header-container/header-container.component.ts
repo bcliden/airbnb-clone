@@ -50,21 +50,20 @@ export class HeaderContainerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // send params in url to the filterBarState
     this.data.getFiltersFromUrlQueryParams().subscribe((filters: Filters) => {
       const filterBarState = this.filterBarState$.getValue();
       filterBarState.homeType.filters = filters.homeType;
       filterBarState.price.min = filters.price.min;
       filterBarState.price.max = filters.price.max;
-      // console.log("filterbarstate: ", filterBarState);
       this.filterBarState$.next(filterBarState);
     });
     
+    // 
     this.data.getFiltersFromUrlQueryParams()
       .pipe(
-        // tap(el => console.log("before, ", el)),
-        // filter((el: Filters )=> el.homeType.length > 0),
-        // filter((el: Filters )=> Object.keys(el.price).length > 0),
         map((el: Filters) => {
+          // remove any empty filters so the url params don't get overwritten
           let obj: Filters = {};
           if (el.homeType.length > 0) {
             obj.homeType = el.homeType
@@ -74,11 +73,10 @@ export class HeaderContainerComponent implements OnInit {
           }
           return obj;
         }),
-        // tap(el => console.log("after, ", el))
-      )
-      .subscribe((filters: Filters) => {
-      this.presentFilters = filters;
-    })
+      ).subscribe((filters: Filters) => {
+        // store the new filters on this object
+        this.presentFilters = filters;
+      })
   }
 
   toggleFilterDropdown(filter: string){
@@ -94,21 +92,14 @@ export class HeaderContainerComponent implements OnInit {
   }
 
   applyFilters(filters: Filters) {
-    console.log("filters: ", filters);
-    Object.keys(filters).forEach(filterType => this.closeFilterDropdown(filterType)); // close all present filter menus
-
-    // console.log("presentFilters: ", this.presentFilters);
+    // go through any keys of the filters obj and close their dropdown
+    Object.keys(filters).forEach(filterType => this.closeFilterDropdown(filterType));
     
     // build params obj based on present + new filters
-    let queryParams = { 
-      // ...this.presentFilters
-      // 'home_type': filters.homeType,
-      // 'price_min': filters.price && filters.price.min,
-      // 'price_max': filters.price && filters.price.max
-      // ...this.presentFilters,
-      // ...filters
-    };
+    // unfortunately can't use spread op-- nested price makes it difficult
+    let queryParams = { };
 
+    // equivalent of [...this.presentFilters]
     if (this.presentFilters.homeType) {
       queryParams['home_type'] = this.presentFilters.homeType;
     }
@@ -121,6 +112,7 @@ export class HeaderContainerComponent implements OnInit {
       queryParams['price_max'] = this.presentFilters.price.max;
     }
 
+    // equivalent of [...this.filters], overwriting the present filters
     if (filters.homeType) {
       queryParams['home_type'] = filters.homeType;
     }
@@ -132,16 +124,12 @@ export class HeaderContainerComponent implements OnInit {
     if (filters.price && filters.price.max >= 0) {
       queryParams['price_max'] = filters.price.max;
     }
-    // if(filters.homeType && filters.homeType.length > 0) {
-    //   queryParams['home_type'] = filters.homeType;
-    // }
 
-    console.log("queryParams: ", queryParams);
-
+    // then, navigate using the new queryParams obj
     this.router.navigate(['homes'], { 
       queryParams,
       queryParamsHandling: 'merge'
-    })
+    });
   }
 
 }
