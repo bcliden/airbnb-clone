@@ -10,9 +10,10 @@ import { FilterHomeTypeFormComponent } from './components/filter-home-type-form/
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FilterPriceFormComponent } from './components/filter-price-form/filter-price-form.component';
+import { SortHomesFormComponent } from './components/sort-homes-form/sort-homes-form.component';
 
 @NgModule({
-  declarations: [HeaderContainerComponent, NavComponent, FiltersComponent, FilterHomeTypeFormComponent, FilterPriceFormComponent],
+  declarations: [HeaderContainerComponent, NavComponent, FiltersComponent, FilterHomeTypeFormComponent, FilterPriceFormComponent, SortHomesFormComponent],
   imports: [
     CommonModule,
     HttpClientModule,

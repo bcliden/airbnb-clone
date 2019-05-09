@@ -15,6 +15,14 @@ export type HomeTypes = 'Entire Apartment'
   | 'Tree House' 
   | 'Hotel Room';
 
+export type SortTypes = ''
+  | 'price_high'
+  | 'price_low'
+  | 'rating_high'
+  | 'rating_low'
+  | 'most_ratings'
+  | 'least_ratings'
+
 export interface PriceFilter {
   min?: number;
   max?: number;

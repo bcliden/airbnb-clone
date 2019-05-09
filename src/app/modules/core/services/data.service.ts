@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Home } from '../../homes/home.interface';
-import { delay, switchMap } from 'rxjs/operators';
+import { Home, SortTypes } from '../../homes/home.interface';
+import { delay, switchMap, toArray, map } from 'rxjs/operators';
 import { Filters } from '../containers/header-container/header-container.component';
 import { ActivatedRoute } from '@angular/router';
 
@@ -41,6 +41,9 @@ export class DataService {
         if (filters.price && filters.price.max >= 0) {
           obj = [...obj.filter(listing => listing.price < filters.price.max)];
         }
+        if (filters.sort) {
+          obj = [...obj.sort(this.sortSwitch(filters.sort))] // do the hard part of writing a switch for the types
+        }
 
         return of(obj);
       }),
@@ -56,7 +59,8 @@ export class DataService {
       switchMap(params => {
         let filters: Filters = {
           homeType: [],
-          price: {}
+          price: {},
+          sort: ''
         };
 
         // array can either be a string[] or a string
@@ -73,8 +77,32 @@ export class DataService {
         if (params['price_max']) {
           filters.price.max = +params['price_max'];
         }
+        if (params['sort']) {
+          filters.sort = params['sort'];
+        }
+
         return of(filters);
       })
     )
+  }
+
+  private sortSwitch (string: SortTypes) {
+    // this fn returns a sort function corresponding to the string
+    switch(string) {
+      case "rating_high":
+        return (a: Home, b: Home) => b.rating.stars - a.rating.stars;
+      case "rating_low":
+        return (a: Home, b: Home) => a.rating.stars - b.rating.stars;
+      case "most_ratings":
+        return (a: Home, b: Home) => b.rating.count - a.rating.count;
+      case "least_ratings":
+        return (a: Home, b: Home) => a.rating.count - b.rating.count;
+      case "price_high":
+        return (a: Home, b: Home) => b.price - a.price;
+      case "price_low":
+        return (a: Home, b: Home) => a.price - b.price;
+      default:
+        return (a: Home, b: Home) => 0;
+    }
   }
 }

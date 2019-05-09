@@ -29,4 +29,8 @@
   <div>
     <button class="uk-button uk-button-default uk-button-small uk-text-nowrap wip">Amenities</button>
   </div>
+  <app-sort-homes-form
+    [defaultSort]="filterBarState.sort"
+    (applySort)="applyFilters.next($event)"
+  ></app-sort-homes-form>
 </div>

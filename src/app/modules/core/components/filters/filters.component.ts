@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FilterBarState } from '../../containers/header-container/header-container.component';
+import { FilterBarState, Filters } from '../../containers/header-container/header-container.component';
 
 @Component({
   selector: 'app-filters',
@@ -11,7 +11,7 @@ export class FiltersComponent implements OnInit {
   @Input() filterBarState: FilterBarState;
   @Output() toggleFilterDropdown = new EventEmitter<string>();
   @Output() closeFilterDropdown = new EventEmitter<string>();
-  @Output() applyFilters = new EventEmitter<string>();
+  @Output() applyFilters = new EventEmitter<Filters>();
 
   constructor() { }
 

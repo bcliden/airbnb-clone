@@ -1,0 +1,11 @@
+<form [formGroup]="form" (change)="submit(form.value)">
+    <select [formControlName]="'sort'" class="uk-select uk-form-small uk-form-width-medium" [value]="defaultSort">
+      <option value="" disabled>sort</option>
+      <option value="rating_high">Rating High to Low</option>
+      <option value="rating_low">Rating Low to High</option>
+      <option value="price_high">Price High to Low</option>
+      <option value="price_low">Price Low to High</option>
+      <option value="most_ratings">Most Ratings</option>
+      <option value="least_ratings">Least Ratings</option>
+    </select>
+</form>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { DataState } from 'src/app/modules/core/services/data.service';
 import { Home } from '../../home.interface';
 
