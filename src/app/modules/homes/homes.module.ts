@@ -4,12 +4,14 @@ import { HomeListContainerComponent } from './containers/home-list-container/hom
 import { HomesRoutingModule } from './homes-routing.module';
 import { HomeListComponent } from './components/home-list/home-list.component';
 import { HomeComponent } from './components/home/home.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [HomeListContainerComponent, HomeListComponent, HomeComponent],
   imports: [
     CommonModule,
-    HomesRoutingModule
+    HomesRoutingModule,
+    SharedModule
   ]
 })
 export class HomesModule { }

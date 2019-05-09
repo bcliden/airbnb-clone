@@ -12,6 +12,8 @@ import { RouterModule } from '@angular/router';
 import { FilterPriceFormComponent } from './components/filter-price-form/filter-price-form.component';
 import { SortHomesFormComponent } from './components/sort-homes-form/sort-homes-form.component';
 import { SearchHomesComponent } from './components/search-homes/search-homes.component';
+import { SearchHomesListItemComponent } from './components/search-homes-list-item/search-homes-list-item.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { SearchHomesComponent } from './components/search-homes/search-homes.com
     FilterHomeTypeFormComponent, 
     FilterPriceFormComponent, 
     SortHomesFormComponent, 
-    SearchHomesComponent
+    SearchHomesComponent, 
+    SearchHomesListItemComponent, 
   ],
   imports: [
     CommonModule,
@@ -29,9 +32,12 @@ import { SearchHomesComponent } from './components/search-homes/search-homes.com
     ClickOutsideModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    SharedModule
   ],
-  exports: [HeaderContainerComponent],
+  exports: [
+    HeaderContainerComponent, 
+  ],
   providers: [DataService]
 })
 export class CoreModule { }

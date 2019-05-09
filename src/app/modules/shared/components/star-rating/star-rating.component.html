@@ -1,0 +1,5 @@
+<span 
+*ngFor="let star of parseStars(stars)"
+uk-icon="icon: star; ratio: 0.7"
+[ngClass]="{ 'uk-text-danger': star, 'uk-text-muted': !star }"
+></span>

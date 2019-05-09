@@ -11,11 +11,7 @@
     </div>
     <div class="uk-text-small uk-text-muted">${{ home.price }} per night</div>
     <div class="uk-flex uk-flex-middle uk-text-small">
-      <span 
-        *ngFor="let star of parseStars(home.rating.stars)"
-        uk-icon="icon: star; ratio: 0.7"
-        [ngClass]="{ 'uk-text-danger': star, 'uk-text-muted': !star }"
-      ></span>
+      <app-star-rating [stars]="home.rating.stars" ></app-star-rating>
       <div class="uk-text-small">&nbsp;{{ home.rating.count }}</div>
     </div>
   </div>
