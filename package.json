@@ -5,7 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:gh": "ng build --prod --output-path ./docs --base-href airbnb-clone/",
+    "predeploy": "ng build --prod --base-href 'https://bliden.github.io/airbnb-clone/'",
+    "deploy": "ngh --dir=dist/airbnb-clone",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
