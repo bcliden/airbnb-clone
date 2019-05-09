@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Home, SortTypes } from '../../homes/home.interface';
-import { delay, switchMap, toArray, map } from 'rxjs/operators';
+import { delay, switchMap, toArray, map, debounceTime, filter } from 'rxjs/operators';
 import { Filters } from '../containers/header-container/header-container.component';
 import { ActivatedRoute } from '@angular/router';
 
@@ -16,6 +16,7 @@ export interface DataState<T> {
 })
 export class DataService {
   private homes$ = new BehaviorSubject({ loading: true, data: []});
+  private search$ = new BehaviorSubject({ loading: false, data: []});
 
   constructor(
     private http: HttpClient,
@@ -26,7 +27,7 @@ export class DataService {
     return this.homes$.asObservable();
   }
 
-  loadHomes(filters: Filters) {
+  loadHomes(filters: Filters): void {
     this.homes$.next({ loading: true, data: []});
     this.http.get<any[]>('assets/mocks/homes.json').pipe(
       switchMap((homes: Home[]) => {
@@ -42,7 +43,7 @@ export class DataService {
           obj = [...obj.filter(listing => listing.price < filters.price.max)];
         }
         if (filters.sort) {
-          obj = [...obj.sort(this.sortSwitch(filters.sort))] // do the hard part of writing a switch for the types
+          obj = [...obj.sort(this.sortSwitch(filters.sort))]
         }
 
         return of(obj);
@@ -50,6 +51,31 @@ export class DataService {
       delay(1000)
     ).subscribe((homes: Home[]) => {
       this.homes$.next({ loading: false, data: homes });
+    })
+  }
+
+  getSearch$(): Observable<DataState<Home[]>>{
+    return this.search$.asObservable();
+  }
+
+  searchHomes(query):void {
+    this.search$.next({ loading: true, data: []});
+    this.http.get<any[]>('assets/mocks/homes.json').pipe(
+      map((homes: Home[]) => {
+        if (query == undefined || query == "") { // this also checks for null 
+          return [];
+        } else {
+          return homes.filter(
+            (home: Home) => {
+              return home.title.toLowerCase()
+                .includes(query.toLowerCase());
+            });
+        }
+
+      }),
+      delay(1000)
+    ).subscribe((homes: Home[]) => {
+      this.search$.next({loading: false, data: homes});
     })
   }
 

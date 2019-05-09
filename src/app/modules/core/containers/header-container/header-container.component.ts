@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { HomeTypes, PriceFilter, SortTypes } from 'src/app/modules/homes/home.interface';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { HomeTypes, PriceFilter, SortTypes, Home } from 'src/app/modules/homes/home.interface';
 import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
-import { filter, tap, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 export interface FilterBarState {
   homeType: { 
@@ -31,6 +31,7 @@ export interface Filters {
 })
 export class HeaderContainerComponent implements OnInit {
 
+  search$ = this.data.getSearch$();
   presentFilters: Filters;
   filterBarState$ = new BehaviorSubject<FilterBarState>(
     { 
@@ -147,6 +148,10 @@ export class HeaderContainerComponent implements OnInit {
       queryParams,
       queryParamsHandling: 'merge'
     });
+  }
+
+  handleSearch(query){
+    this.data.searchHomes(query);
   }
 
 }

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Home } from 'src/app/modules/homes/home.interface';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-nav',
@@ -7,9 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
+  @Input() searchResults$: Observable<Home[]>;
+  @Output() search = new EventEmitter<string>();
+
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {  }
 
 }

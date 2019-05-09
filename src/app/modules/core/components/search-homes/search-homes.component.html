@@ -1,0 +1,20 @@
+<div class="uk-inline uk-width-1-1 ">
+  <form [formGroup]="form" (submit)="submit(form.value)"
+    class="uk-search uk-search-default uk-box-shadow-small uk-card-hover uk-width-1-1">
+    <span uk-search-icon></span>
+    <span *ngIf="results.loading" uk-spinner="ratio: 0.7" class="uk-form-icon uk-form-icon-flip"></span>
+    <input [formControlName]="'search'" class="drop-toggle uk-search-input" type="search" placeholder="Anywhere • Homes" />
+  </form>
+  <div
+    uk-dropdown="toggle: .drop-toggle; mode: hover">
+    <div class="uk-text-muted uk-text-uppercase uk-text-small uk-text-bold uk-text-truncate uk-margin-small uk-margin-remove-vertical">
+      results
+    </div>
+    <hr class="uk-margin-small uk-margin-remove-top">
+    <div *ngFor="let home of results.data">
+      {{ home.title }} - ${{ home.price }}/night - {{ home.location}}
+    </div>
+    <div *ngIf="!form.controls.search.touched">Please enter a search query.</div>
+    <div *ngIf="results.data.length <= 0 && form.controls.search.touched">No results found.</div>
+  </div>
+</div>
