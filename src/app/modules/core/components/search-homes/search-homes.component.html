@@ -3,7 +3,7 @@
     class="uk-search uk-search-default uk-box-shadow-small uk-card-hover uk-width-1-1">
     <span uk-search-icon></span>
     <span *ngIf="results.loading" uk-spinner="ratio: 0.7" class="uk-form-icon uk-form-icon-flip"></span>
-    <input [formControlName]="'search'" class="drop-toggle uk-search-input" type="search" placeholder="Anywhere • Homes" />
+    <input [formControlName]="'search'" id="search-box" class="drop-toggle uk-search-input" type="search" placeholder="Anywhere • Homes" />
   </form>
   <div class="uk-height-max-large uk-overflow-auto uk-margin uk-width-1-1"
     uk-dropdown="toggle: .drop-toggle; mode: hover">
