@@ -2,7 +2,8 @@
 
 <hr class="uk-margin-small uk-margin-remove-top">
 
-<app-filters [filterBarState]="filterBarState$ | async" 
+<app-filters class=""
+  [filterBarState]="filterBarState$ | async" 
   (toggleFilterDropdown)="toggleFilterDropdown($event)"
   (closeFilterDropdown)="closeFilterDropdown($event)"
   (applyFilters)="applyFilters($event)"
