@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, fromEvent, of } from 'rxjs';
 import { HomeTypes, PriceFilter, SortTypes, Home } from 'src/app/modules/homes/home.interface';
 import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
-import { map } from 'rxjs/operators';
+import { map, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 export interface FilterBarState {
   homeType: { 
@@ -84,7 +84,20 @@ export class HeaderContainerComponent implements OnInit {
       ).subscribe((filters: Filters) => {
         // store the new filters on this object
         this.presentFilters = filters;
-      })
+      });
+
+      // using the streamed queries from search, make requests on the data service
+      fromEvent(document.getElementById('nav-collection'), 'search')
+        .pipe(
+          debounceTime(250),
+          map((e: any) => e.target.value),
+          distinctUntilChanged(),
+          switchMap(query => {
+            this.data.searchHomes(query);
+            return of();
+          })
+        ).subscribe();
+    
   }
 
   toggleFilterDropdown(filter: string){
@@ -102,7 +115,7 @@ export class HeaderContainerComponent implements OnInit {
   applyFilters(filters: Filters) {
     // go through any keys of the filters obj and close their dropdown
     Object.keys(filters)
-      .filter(el => el !== 'sort')
+      .filter(el => el !== 'sort') // ignore sort if exists
       .forEach(filterType => this.closeFilterDropdown(filterType));
     
     // build params obj based on present + new filters

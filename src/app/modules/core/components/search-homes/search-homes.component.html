@@ -1,5 +1,5 @@
 <div class="uk-inline uk-width-1-1 ">
-  <form [formGroup]="form" (submit)="submit(form.value)"
+  <form [formGroup]="form" (submit)="submit(form.value)" (keydown)="submit(form.value)"
     class="uk-search uk-search-default uk-box-shadow-small uk-card-hover uk-width-1-1">
     <span uk-search-icon></span>
     <span *ngIf="results.loading" uk-spinner="ratio: 0.7" class="uk-form-icon uk-form-icon-flip"></span>
